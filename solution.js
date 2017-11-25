@@ -5,12 +5,16 @@ mongo.connect(url, function(err, db) {
     if (err) throw err
     var parrots = db.collection('parrots')
     parrots.find({
-    age: {
-      $gt: +process.argv[2]
-    }
-}).toArray(function(err, documents) {
-    if (err) throw err
-    console.log(documents)
-    db.close()
+        age: {
+            $gt: +process.argv[2]
+        }
+    }, {
+        name: 1
+        , age: 1
+        , _id: 0
+    }).toArray(function(err, documents) {
+        if (err) throw err
+        console.log(documents)
+        db.close()
     })
 })
